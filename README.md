@@ -1,2 +1,1 @@
-# ReseauEntrepriseB
-Repo du Box Of Knowledge
+# Branche dédiée aux services webs
