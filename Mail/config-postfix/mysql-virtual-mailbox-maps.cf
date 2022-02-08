@@ -1,0 +1,5 @@
+user = mailUser
+password = root
+hosts = 127.0.0.1
+dbname = maildb
+query = SELECT maildir FROM virtual_users WHERE email='%s'

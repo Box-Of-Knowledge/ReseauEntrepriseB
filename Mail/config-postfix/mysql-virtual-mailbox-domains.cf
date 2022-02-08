@@ -1,0 +1,5 @@
+user = mailUser
+password = root
+hosts = 127.0.0.1
+dbname = maildb
+query = SELECT 1 FROM virtual_domains WHERE name='%s'
