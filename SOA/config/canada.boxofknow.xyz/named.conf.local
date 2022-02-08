@@ -1,7 +1,7 @@
-zone "groupeb2.everard.me" {
+zone "france.boxofknow.xyz" {
     type master;
     // this line below has to be modified according to which server the file will be copied to
-    // file "/etc/bind/zones/db.groupeb2.everard.me.signed";
+    file "/etc/bind/zones/db.france.boxofknow.xyz.signed";
     allow-transfer { none; };
     allow-update { none; };
 };

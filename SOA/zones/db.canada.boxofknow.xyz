@@ -1,7 +1,7 @@
-$ORIGIN groupeb2.everard.me.
+$ORIGIN canada.boxofknow.xyz.
 $TTL    3600
 
-@       IN      SOA     ns.groupeb2.everard.me.     he201801.students.ephec.be. (
+@       IN      SOA     ns.canada.boxofknow.xyz.     he201801.students.ephec.be. (
                 2022020801  ; Serial
                 3600        ; Refresh
                 600         ; Retry
@@ -11,8 +11,8 @@ $TTL    3600
 
 
 ; map servers with specific funtions to according server name
-groupeb2.everard.me.        IN          NS              ns.groupeb2.everard.me.
-@                           IN          MX      10      mail.groupeb2.everard.me.
+@                           IN          NS              ns.canada.boxofknow.xyz.
+@                           IN          MX      10      mail.canada.boxofknow.xyz.
 
 
 ; map different server names to their respective ip address

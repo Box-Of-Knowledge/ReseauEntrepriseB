@@ -1,0 +1,6 @@
+zone "france.boxofknow.xyz" {
+    type master;
+    file "/etc/bind/zones/db.france.boxofknow.xyz.signed";
+    allow-transfer { none; };
+    allow-update { none; };
+};
