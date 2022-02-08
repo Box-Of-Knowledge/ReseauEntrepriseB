@@ -18,6 +18,9 @@
   "homepage": "https://github.com/ReseauEntrepriseB/Rapports#readme",
   "dependencies": {
     "dotenv": "^16.0.0",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "react-bootstrap-validation": "^0.1.11",
+    "react-router-dom": "^6.2.1",
+    "react-service-worker": "^0.1.1"
   }
 }
