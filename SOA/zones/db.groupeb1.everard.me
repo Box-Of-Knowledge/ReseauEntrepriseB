@@ -1,0 +1,27 @@
+$ORIGIN groupeb1.everard.me.
+$TTL    3600
+
+@       IN      SOA     ns.groupeb1.everard.me.     he201801.students.ephec.be. (
+                2022020801  ; Serial
+                3600        ; Refresh
+                600         ; Retry
+                1209700     ; Expire
+                600         ; Negative Cache TTL
+)
+
+
+; map servers with specific funtions to according server name
+groupeb1.evrard.me.         IN          NS              ns.groupeb1.everard.me.
+@                           IN          MX      10      mail.groupeb1.everard.me.
+
+
+; map different server names to their respective ip address
+ns                          IN          A               51.255.70.232
+@                           IN          A               51.255.70.232
+mail                        IN          A               51.255.70.232
+
+
+; SPF record should come below this line
+
+
+; DMARC record should come below this line

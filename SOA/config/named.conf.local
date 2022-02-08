@@ -1,0 +1,7 @@
+zone "groupeb2.everard.me" {
+    type master;
+    // this line below has to be modified according to which server the file will be copied to
+    // file "/etc/bind/zones/db.groupeb2.everard.me.signed";
+    allow-transfer { none; };
+    allow-update { none; };
+};
