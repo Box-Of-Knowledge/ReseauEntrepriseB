@@ -20,7 +20,11 @@
   "dependencies": {
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
+
     "nodemon": "^2.0.15",
     "pg": "^8.7.3"
+    "react-bootstrap-validation": "^0.1.11",
+    "react-router-dom": "^6.2.1",
+    "react-service-worker": "^0.1.1"
   }
 }
