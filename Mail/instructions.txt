@@ -1,0 +1,86 @@
+apt-get install postfix postfix-mysql dovecot-core dovecor-imapd dovecot-pop3d dovecot-lmtpd mysql-server
+
+sudo mysql_secure_installation
+
+sudo mysql -u root -p
+
+CREATE DATABASE mailserver;
+
+CREATE USER 'mailuser'@'127.0.0.1' IDENTIFIED BY 'password';
+GRANT SELECT ON mailserver.* TO 'mailuser'@'127.0.0.1';
+
+FLUSH PRIVILEGES;
+
+USE mailserver;
+
+CREATE TABLE `virtual_domains` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `virtual_users` (
+  `id` int(11) NOT NULL auto_increment,
+  `domain_id` int(11) NOT NULL,
+  `password` varchar(106) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  FOREIGN KEY (domain_id) REFERENCES virtual_domains(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `virtual_aliases` (
+  `id` int(11) NOT NULL auto_increment,
+  `domain_id` int(11) NOT NULL,
+  `source` varchar(100) NOT NULL,
+  `destination` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (domain_id) REFERENCES virtual_domains(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO mailserver.virtual_domains (name) VALUES ('example.com');
+
+SELECT * FROM mailserver.virtual_domains;
+
+sudo doveadm pw -s SHA512-CRYPT -p "password" -r 5000
+ 
+INSERT INTO mailserver.virtual_users (domain_id, password , email) VALUES ('1', 'hash', 'user@example.com');
+
+SELECT * FROM mailserver.virtual_users;
+
+INSERT INTO mailserver.virtual_aliases (domain_id, source, destination) VALUES ('1', 'alias@example.com', 'user@example.com');
+
+SELECT * FROM mailserver.virtual_aliases;
+
+# postfix
+sudo cp /etc/postfix/main.cf /etc/postfix/main.cf.orig
+
+--> after editing config files
+sudo postmap -q example.com mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf
+
+sudo postmap -q email1@example.com mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
+
+sudo postmap -q alias@example.com mysql:/etc/postfix/mysql-virtual-alias-maps.cf
+
+sudo chmod -R o-rwx /etc/postfix
+
+sudo systemctl restart postfix
+
+# dovecot -> after editing dovecot and 10-mail config files
+
+sudo mkdir -p /var/mail/vhosts/example.com
+
+sudo groupadd -g 5000 vmail
+sudo useradd -g vmail -u 5000 vmail -d /var/mail
+
+sudo chown -R vmail:vmail /var/mail
+
+-> after editing more files
+
+sudo chown -R vmail:dovecot /etc/dovecot
+
+sudo chmod -R o-rwx /etc/dovecot
+
+->
+
+sudo systemctl restart dovecot
