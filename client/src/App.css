@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  background-image: url("./img/logo.png");
+  background-size: 15% ;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .App-logo {
@@ -35,4 +39,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.formationsList div{
+  display: block;
+  float: left;
+  margin: 10px;
 }
