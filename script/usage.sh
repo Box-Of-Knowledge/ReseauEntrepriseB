@@ -15,16 +15,19 @@ USEDMEMPERCENTAGE=$(($USEDMEM * 100 / $TOTALMEM ))
 rm cpu.tmp mem.tmp
 
 # DISPLAY
-echo "---------------------------------------------" >> ressources.log
-echo $(date) >> ressources.log
-echo "CPU USAGE: $USEDCPU%" >> ressources.log
-echo "MEMORY USAGE: $USEDMEMPERCENTAGE%" >> ressources.log
+CPUUSAGETHRESHOLD=90
+MEMUSAGETHRESHOLD=90
+echo "[$(date)] Cpu%: $USEDCPU Mem%: $USEDMEMPERCENTAGE" >> ressources.log
+if [ $USEDMEMPERCENTAGE -ge $MEMUSAGETHRESHOLD ] || [ $USEDCPU -ge $CPUUSAGETHRESHOLD ]
+then
+    echo "[$(date)] Cpu%: $USEDCPU Mem%: $USEDMEMPERCENTAGE" >> threshold.log
+fi
 
 # ARCHIVAGE
-LOGLINELIMIT=20000
+LOGLINELIMIT=10000
 LOGLINECOUNT=$(wc -l ressources.log | cut -d ' ' -f 1)
 if [ $LOGLINECOUNT -ge $LOGLINELIMIT ]
 then
-    echo "ok"
-    mv ressources.log ressources.log.old
+    echo "log rotation"
+    mv ressources.log ressources.old
 fi
