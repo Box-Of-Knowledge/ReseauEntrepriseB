@@ -5,4 +5,4 @@ jobs:
         working_directory: ~/repo
         steps:
             - checkout
-            - run: ssh -p 55555 $USER@$IP "/bin/bash /home/boxofknowledge/tmp/ReseauEntrepriseB/script/usage.sh"
+            - run: ssh -p 55555 $USER@$IP "/bin/bash /home/boxofknowledge/ReseauEntrepriseB/script/usage.sh"
