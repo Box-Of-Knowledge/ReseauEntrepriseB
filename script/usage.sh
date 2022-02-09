@@ -7,14 +7,14 @@ USEDCPU=$(($FULLCPU-$IDLEMEM))
 
 # MEMORY
 top -b -n 1 | grep Mem | head -n 1 > mem.tmp
-USEDMEM=$(awk '{print $8}' mem.tmp | cut -d ',' -f1) 
-TOTALMEM=$(awk '{print $4}' mem.tmp | cut -d ',' -f1)
+USEDMEM=$(awk '{print $8}' mem.tmp | cut -d '.' -f1) 
+TOTALMEM=$(awk '{print $4}' mem.tmp | cut -d '.' -f1)
 USEDMEMPERCENTAGE=$(($USEDMEM * 100 / $TOTALMEM ))
 
 # SWAP
 top -b -n 1 | grep Mem | tail -n 1 > swap.tmp
-USEDSWAP=$(awk '{print $7}' swap.tmp | cut -d ',' -f1) 
-TOTALSWAP=$(awk '{print $3}' swap.tmp | cut -d ',' -f1)
+USEDSWAP=$(awk '{print $7}' swap.tmp | cut -d '.' -f1) 
+TOTALSWAP=$(awk '{print $3}' swap.tmp | cut -d '.' -f1)
 USEDSWAPPERCENTAGE=$(($USEDSWAP * 100 / $TOTALSWAP ))
 
 # CLEAN UP
