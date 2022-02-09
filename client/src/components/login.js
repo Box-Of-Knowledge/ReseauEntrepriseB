@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+
 export default class Login extends Component {
     render() {
         return (
@@ -23,6 +25,9 @@ export default class Login extends Component {
                 <button type="submit" className="btn btn-primary btn-block">Soumettre</button>
                 <p className="forgot-password text-right">
                     <a href="#">Mdp oublié ?</a>
+                </p>
+                <p className="rgpd-rules" className="text-center">
+                    <Link to={"/rgpd"}> Consulter les conditions générales d'utilisation (RGPD)  </Link>
                 </p>
             </form>
             </div>

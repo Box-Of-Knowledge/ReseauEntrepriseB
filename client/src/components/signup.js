@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import {Link} from 'react-router-dom'
+
 export default class SignUp extends Component {
     render() {
         return (
@@ -25,6 +27,9 @@ export default class SignUp extends Component {
                 <button type="submit" className="btn btn-primary btn-block">Inscription</button>
                 <p className="forgot-password text-right">
                     Déjà enregistré <a href="#">Se connecter ?</a>
+                </p>
+                <p className="rgpd-rules" className="text-center">
+                    <Link to={"/rgpd"}> Consulter les conditions générales d'utilisation (RGPD) </Link>
                 </p>
             </form>
             </div>

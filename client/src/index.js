@@ -7,6 +7,7 @@ import Login from "./components/login";
 import SignUp from "./components/signup";
 import Formations from "./components/formations";
 import Home from "./components/home";
+import Rgpd from "./components/rgpd"
 
 ReactDOM.render(
       
@@ -18,6 +19,7 @@ ReactDOM.render(
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/formations" element={<Formations />} />
+              <Route path="/rgpd" element={<Rgpd />} />
           </Routes>
             
         </Router>,
