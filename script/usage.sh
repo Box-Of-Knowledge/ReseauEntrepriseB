@@ -11,16 +11,23 @@ USEDMEM=$(awk '{print $8}' mem.tmp | cut -d ',' -f1)
 TOTALMEM=$(awk '{print $4}' mem.tmp | cut -d ',' -f1)
 USEDMEMPERCENTAGE=$(($USEDMEM * 100 / $TOTALMEM ))
 
+# SWAP
+top -b -n 1 | grep Mem | tail -n 1 > swap.tmp
+USEDSWAP=$(awk '{print $7}' swap.tmp | cut -d ',' -f1) 
+TOTALSWAP=$(awk '{print $3}' swap.tmp | cut -d ',' -f1)
+USEDSWAPPERCENTAGE=$(($USEDSWAP * 100 / $TOTALSWAP ))
+
 # CLEAN UP
-rm cpu.tmp mem.tmp
+rm cpu.tmp mem.tmp swap.tmp
 
 # DISPLAY
 CPUUSAGETHRESHOLD=90
 MEMUSAGETHRESHOLD=90
-echo "[$(date)] Cpu%: $USEDCPU Mem%: $USEDMEMPERCENTAGE" >> ressources.log
-if [ $USEDMEMPERCENTAGE -ge $MEMUSAGETHRESHOLD ] || [ $USEDCPU -ge $CPUUSAGETHRESHOLD ]
+SWAPUSAGETHRESHOLD=90
+echo "[$(date)] Cpu%: $USEDCPU Mem%: $USEDMEMPERCENTAGE Swap%: $USEDSWAPPERCENTAGE" >> ressources.log
+if [ $USEDMEMPERCENTAGE -ge $MEMUSAGETHRESHOLD ] || [ $USEDCPU -ge $CPUUSAGETHRESHOLD ] || [ $USEDSWAP -ge $SWAPUSAGETHRESHOLD ]
 then
-    echo "[$(date)] Cpu%: $USEDCPU Mem%: $USEDMEMPERCENTAGE" >> threshold.log
+    echo "[$(date)] Cpu%: $USEDCPU Mem%: $USEDMEMPERCENTAGE Swap%: $USEDSWAPPERCENTAGE" >> threshold.log
 fi
 
 # ARCHIVAGE
