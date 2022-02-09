@@ -2,7 +2,7 @@ $ORIGIN canada.boxofknow.xyz.
 $TTL    3600
 
 @       IN      SOA     ns.canada.boxofknow.xyz.     he201801.students.ephec.be. (
-                2022020801  ; Serial
+                2022020901  ; Serial
                 3600        ; Refresh
                 600         ; Retry
                 1209700     ; Expire
@@ -19,7 +19,7 @@ $TTL    3600
 ns                          IN          A               51.79.19.105
 @                           IN          A               51.79.19.105
 mail                        IN          A               51.79.19.105
-monitor                     IN          A               51.79.19.105
+www                         IN          A               51.79.19.105
 
 
 ; SPF record should come below this line
