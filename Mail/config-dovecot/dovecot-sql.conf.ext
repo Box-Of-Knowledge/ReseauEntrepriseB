@@ -1,3 +1,6 @@
+# This file is commonly accessed via passdb {} or userdb {} section in
+# conf.d/auth-sql.conf.ext
+
 # This file is opened as root, so it should be owned by root and mode 0600.
 #
 # http://wiki2.dovecot.org/AuthDatabase/SQL
@@ -26,7 +29,7 @@
 # );
 
 # Database driver: mysql, pgsql, sqlite
-driver = mysql
+#driver = 
 
 # Database connection string. This is driver-specific setting.
 #
@@ -34,7 +37,7 @@ driver = mysql
 # settings, like: host=sql1.host.org host=sql2.host.org
 #
 # pgsql:
-#   For available options, see the PostgreSQL documention for the
+#   For available options, see the PostgreSQL documentation for the
 #   PQconnectdb function of libpq.
 #   Use maxconns=n (default 5) to change how many connections Dovecot can
 #   create to pgsql.
@@ -44,13 +47,18 @@ driver = mysql
 #     host, port, user, password, dbname
 #
 #   But also adds some new settings:
-#     client_flags        - See MySQL manual
-#     ssl_ca, ssl_ca_path - Set either one or both to enable SSL
-#     ssl_cert, ssl_key   - For sending client-side certificates to server
-#     ssl_cipher          - Set minimum allowed cipher security (default: HIGH)
-#     option_file         - Read options from the given file instead of
-#                           the default my.cnf location
-#     option_group        - Read options from the given group (default: client)
+#     client_flags           - See MySQL manual
+#     connect_timeout        - Connect timeout in seconds (default: 5)
+#     read_timeout           - Read timeout in seconds (default: 30)
+#     write_timeout          - Write timeout in seconds (default: 30)
+#     ssl_ca, ssl_ca_path    - Set either one or both to enable SSL
+#     ssl_cert, ssl_key      - For sending client-side certificates to server
+#     ssl_cipher             - Set minimum allowed cipher security (default: HIGH)
+#     ssl_verify_server_cert - Verify that the name in the server SSL certificate
+#                              matches the host (default: no)
+#     option_file            - Read options from the given file instead of
+#                              the default my.cnf location
+#     option_group           - Read options from the given group (default: client)
 # 
 #   You can connect to UNIX sockets by using host: host=/var/run/mysql.sock
 #   Note that currently you can't use spaces in parameters.
@@ -63,14 +71,14 @@ driver = mysql
 #   connect = host=sql.example.com dbname=virtual user=virtual password=blarg
 #   connect = /etc/dovecot/authdb.sqlite
 #
-connect = host=127.0.0.1 dbname=mailserver user=mailuser password=mailuserpass
+#connect =
 
 # Default password scheme.
 #
 # List of supported schemes is in
 # http://wiki2.dovecot.org/Authentication/PasswordSchemes
 #
-default_pass_scheme = SHA512-CRYPT
+default_pass_scheme = SHA512
 
 # passdb query to retrieve the password. It can return fields:
 #   password - The user's password. This field must be returned.
@@ -102,7 +110,6 @@ default_pass_scheme = SHA512-CRYPT
 #password_query = \
 #  SELECT username, domain, password \
 #  FROM users WHERE username = '%n' AND domain = '%d'
-password_query = SELECT email as user, password FROM virtual_users WHERE email='%u';
 
 # userdb query to retrieve the user information. It can return fields:
 #   uid - System UID (overrides mail_uid setting)
@@ -135,4 +142,3 @@ password_query = SELECT email as user, password FROM virtual_users WHERE email='
 
 # Query to get a list of all usernames.
 #iterate_query = SELECT username AS user FROM users
-
