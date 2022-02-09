@@ -1,4 +1,4 @@
-apt-get install postfix postfix-mysql dovecot-core dovecor-imapd dovecot-pop3d dovecot-lmtpd mysql-server
+sudo apt-get install postfix postfix-mysql dovecot-core dovecor-imapd dovecot-pop3d dovecot-lmtpd mysql-server
 
 sudo mysql_secure_installation
 
@@ -39,18 +39,9 @@ CREATE TABLE `virtual_aliases` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO mailserver.virtual_domains (name) VALUES ('example.com');
-
-SELECT * FROM mailserver.virtual_domains;
-
-sudo doveadm pw -s SHA512-CRYPT -p "password" -r 5000
  
-INSERT INTO mailserver.virtual_users (domain_id, password , email) VALUES ('1', 'hash', 'user@example.com');
+INSERT INTO mailserver.virtual_users (domain_id, password , email) VALUES ('1', TO_BASE64(UNHEX(SHA2('Box2022!', 512))) , 'user@france.boxofknow.xyz');
 
-SELECT * FROM mailserver.virtual_users;
-
-INSERT INTO mailserver.virtual_aliases (domain_id, source, destination) VALUES ('1', 'alias@example.com', 'user@example.com');
-
-SELECT * FROM mailserver.virtual_aliases;
 
 # postfix
 sudo cp /etc/postfix/main.cf /etc/postfix/main.cf.orig
