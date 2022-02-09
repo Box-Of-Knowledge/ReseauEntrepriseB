@@ -51,3 +51,8 @@ RUN mv /etc/postfix/main.cf /etc/postfix/main.cf.bak
 # only when DNS is configured 
 # RUN postmap /etc/postfix/generic
 
+# INSTALL SPAMASSASSIN
+RUN apt-get install -y spamassassin spamc
+RUN groupadd spamd
+RUN useradd -g spamd -s /bin/false -d /var/log/spamassassin spamd
+

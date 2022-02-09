@@ -1,0 +1,11 @@
+...
+
+HOMEDIR="/home/spamd/"
+
+OPTIONS="--create-prefs --max-children 5 --username spamd --helper-home-dir ${HOMEDIR} -s ${HOMEDIR}spamd.log"
+
+PIDFILE="${HOMEDIR}spamd.pid"
+
+...
+
+CRON=1

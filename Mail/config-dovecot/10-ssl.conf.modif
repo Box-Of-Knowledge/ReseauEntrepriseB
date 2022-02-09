@@ -1,0 +1,6 @@
+...
+# SSL/TLS support: yes, no, required. <doc/wiki/SSL.txt>
+ssl = required
+...
+ssl_cert = </etc/letsencrypt/live/example.com/fullchain.pem
+ssl_key = </etc/letsencrypt/live/example.com/privkey.pem
