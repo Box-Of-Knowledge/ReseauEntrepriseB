@@ -10,6 +10,7 @@
 #               (yes)   (yes)   (yes)    (never) (100)
 # ==========================================================================
 smtp      inet  n       -       n       -       -       smtpd
+  -o content_filter=spamassassin
 #smtp      inet  n       -       -       -       1       postscreen
 #smtpd     pass  -       -       -       -       -       smtpd
 #dnsblog   unix  -       -       -       -       0       dnsblog
@@ -32,3 +33,6 @@ smtps     inet  n       -       -       -       -       smtpd
   -o smtpd_client_restrictions=permit_sasl_authenticated,reject
   -o milter_macro_daemon_name=ORIGINATING
   ...
+spamassassin unix    -       n       n        -      pipe
+user=spamd argv=/usr/bin/spamc -f -e
+/usr/sbin/sendmail -oi -f ${sender} ${recepient}

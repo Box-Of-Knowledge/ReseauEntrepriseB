@@ -84,3 +84,24 @@ sudo chmod -R o-rwx /etc/dovecot
 ->
 
 sudo systemctl restart dovecot
+
+# testing email server
+
+sudo apt-get install mailutils
+
+echo "Email body text" | sudo mail -s "Email subject line" recipient@gmail.com -aFrom:email1@example.com
+
+sudo mail -f /var/mail/vhosts/example.com/email1
+
+# set up spam assassin
+
+sudo apt-get install spamassassin spamc
+
+sudo adduser spamd --disabled-login
+
+-> setup spamassassin files
+
+sudo systemctl start spamassassin
+sudo systemctl enable spamassassin
+
+sudo systemctl restart postfix
