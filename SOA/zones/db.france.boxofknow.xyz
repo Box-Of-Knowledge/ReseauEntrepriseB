@@ -19,6 +19,7 @@ $TTL    3600
 ns                          IN          A               51.255.70.232
 @                           IN          A               51.255.70.232
 mail                        IN          A               51.255.70.232
+monitor                     IN          A               51.255.70.232
 
 
 ; SPF record should come below this line
