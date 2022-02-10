@@ -1,0 +1,34 @@
+version: "3.6"
+
+services:
+  db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  web:
+  api:
+  caddy:
+    build: ./caddy
+    command: caddy run
+    volumes:
+      - caddy_data: /data
+    environment:
+      - WEB_PORT=${WEB_PORT}
+      - DOMAIN_NAME=${DOMAIN_NAME}
+    ports:
+      - "${WEB_PORT}:${WEB_PORT}"
+      - "${WEB_PORT_HTTP}:80"
+    depends_on:
+      - api
+      - web
+
+volumes:
+  postgres_data: {}
+  caddy_data: {}
+

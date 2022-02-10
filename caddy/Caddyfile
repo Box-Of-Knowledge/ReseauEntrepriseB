@@ -1,0 +1,8 @@
+{$DOMAIN_NAME}:{$WEB_PORT} {
+    respond "HelloWOrld!"
+    encode zstd gzip
+    
+}
+www.{$DOMAIN_NAME}:{$WEB_PORT} {
+    redir https://{$DOMAIN_NAME}:{$WEB_PORT}{uri}
+}
