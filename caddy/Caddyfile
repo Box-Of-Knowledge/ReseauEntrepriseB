@@ -1,6 +1,27 @@
+# snippet
+(cors) {
+	@origin header Origin {args.0}
+	header @origin Access-Control-Allow-Origin "{args.0}"
+	header @origin Access-Control-Request-Method GET,POST,PUT,DELETE
+    header @origin Access-Control-Allow-Headers: content-type
+}
+(redirect) {
+    handle_path /{args.0}/* {
+        import cors *
+        uri strip_prefix /{args.0}
+        reverse_proxy {args.0}:{args.1}
+    }
+    redir /{args.0} https://{$DOMAIN_NAME}/{args.0}/ permanent
+}
+
 {$DOMAIN_NAME}:{$WEB_PORT} {
-    respond "HelloWOrld!"
-    encode zstd gzip
+    import redirect "api" "80"
+    handle {
+        root * /app
+        try_files {path} /index.html
+        file_server
+    }
+
     
 }
 www.{$DOMAIN_NAME}:{$WEB_PORT} {
