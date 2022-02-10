@@ -6,4 +6,4 @@ jobs:
         steps:
             - checkout
             - run: ssh -p 55555 $USER@$IPFR "cd ReseauEntrepriseB/script && ./usage.sh"
-            - run: ssh -p 55555 $USER@&IPCA "cd ReseauEntrepriseB/script && ./usage.sh"
+            - run: ssh -p 55555 $USER@$IPCA "cd ReseauEntrepriseB/script && ./usage.sh"
