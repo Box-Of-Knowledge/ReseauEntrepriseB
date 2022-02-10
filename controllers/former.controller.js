@@ -37,7 +37,7 @@ const formerCtrl = {
                 sameSite: 'none', 
                 secure: true}
             );
-            res.json(tokens);
+            res.json({secure:tokens, former_id:student.rows[0].former_id});
         }
         catch (err) {
             console.error(err.message);

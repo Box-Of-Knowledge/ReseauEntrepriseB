@@ -38,7 +38,7 @@ const userCtrl = {
                 sameSite: 'none', 
                 secure: true}
             );
-            res.json(tokens);
+            res.json({secure:tokens, student_id:student.rows[0].student_id});
         }
         catch (err) {
             console.error(err.message);

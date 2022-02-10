@@ -61,16 +61,18 @@ export default class Login extends Component {
             if(this.state.role === 'Formateur'){
                 formerService.login(this.state.name, this.state.password)
                 .then((res) => {
-                    window.localStorage.setItem('accessToken', res.data.accessToken);
-                    window.localStorage.setItem('refreshToken', res.data.refreshToken);
+                    window.localStorage.setItem('accessToken', res.data.secure.accessToken);
+                    window.localStorage.setItem('refreshToken', res.data.secure.refreshToken);
+                    window.localStorage.setItem('student_id', res.data.student_id);
                     window.location.href='/formations';
                 })
             }
             else{
                 userService.login(this.state.name, this.state.password)
-                .then(() => {
-                    window.localStorage.setItem('accessToken', res.data.accessToken);
-                    window.localStorage.setItem('refreshToken', res.data.refreshToken);
+                .then((res) => {
+                    window.localStorage.setItem('accessToken', res.data.secure.accessToken);
+                    window.localStorage.setItem('refreshToken', res.data.secure.refreshToken);
+                     window.localStorage.setItem('student_id', res.data.student_id);
                     window.location.href='/formations';
                 })
             }
