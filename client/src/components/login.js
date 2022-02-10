@@ -50,7 +50,7 @@ export default class Login extends Component {
         });
       };
 
-    handleSubmit = e => {
+   /*handleSubmit = e => {
         e.preventDefault();
         this.setState({message: ""})
         this.form.validateAll();
@@ -77,7 +77,7 @@ export default class Login extends Component {
                 })
             }
       };
-    };
+    };*/
 
     render() {
 

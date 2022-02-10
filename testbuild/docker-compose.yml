@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+
+  app:
+    image: node:14.15.1
+    container_name: app
+    restart: unless-stopped
+    volumes:
+      - ./backend:/var/www/backend
+    networks:
+      web-network:
+        ipv4_address: 192.168.10.10
+    command: bash -c "cd /var/www/backend && npm i && node server.js"
+
+
+#--------------------
+
+networks:
+  web-network:
+    name: web-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.10.0/24
+          gateway: 192.168.10.1
+
