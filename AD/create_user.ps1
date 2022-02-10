@@ -1,17 +1,16 @@
-#Store the data from ADUsers.csv in the $ADUsers variable
-$ADUsers = Import-csv C:\Users\Administrator\Desktop\bulk_users1.csv
+#Store the data from usersBox.csv in the $ADUsers variable
+$ADUsers = Import-csv C:\Users\Administrator\Desktop\usersBox.csv
 
-#Loop through each row containing user details in the CSV file 
+
 foreach ($User in $ADUsers)
 {
-	#Read user data from each field in each row and assign the data to a variable as below
-		
+	
 	$Username 	= $User.username
 	$Password 	= $User.password
 	$Firstname 	= $User.firstname
 	$Lastname 	= $User.lastname
     $OU = 'OU=Users,OU=Company,DC=boxofknowledgeFR,DC=local'
- #This field refers to the OU the user account is to be created in
+
     $email      = $User.email
     $streetaddress = $User.streetaddress
     $city       = $User.city
