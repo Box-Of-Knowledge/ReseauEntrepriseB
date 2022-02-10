@@ -5,5 +5,7 @@ general:
       - scripts
 jobs:
     build:
+        machine: true # Use a Linux VM instead of docker environment
+        working_directory: ~/repo
         steps:
-            - run: echo "not this branch!" 
+            - run: echo "nothing here!"
