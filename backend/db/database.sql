@@ -1,7 +1,8 @@
+DROP TABLE IF EXISTS commentary;
+DROP TABLE IF EXISTS formation_student;
 DROP TABLE IF EXISTS formation;
 DROP TABLE IF EXISTS former;
 DROP TABLE IF EXISTS student;
-DROP TABLE IF EXISTS formation_student;
 
 
 CREATE TABLE former(
