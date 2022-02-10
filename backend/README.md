@@ -1,6 +1,6 @@
 # Branche dédiée aux services webs
 # installation du backend 
-npm install
+`npm install`
 
 # lancer le backend 
 faire atttention d'etre dans le dossier backend 
