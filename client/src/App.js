@@ -16,7 +16,7 @@ export default class App extends Component {
         }
 
     componentDidMount(){
-        if(localStorage.getItem('accessToken')!= null){
+        if(localStorage.getItem('refreshToken')!= null){
             this.setState({
                 isLogged:true
             })
@@ -33,7 +33,7 @@ export default class App extends Component {
           <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={{fontSize: "20px"}}>
             <div className="container">
               <Link className="navbar-brand" to={"/"}>
-                <img src={logo} style={{width: "47px", marginRight: "40px"}}/></Link>
+              <img src={logo} style={{width: "47px", marginRight: "40px"}}/></Link>
               <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item">

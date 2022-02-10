@@ -22,11 +22,23 @@ export default class Formations extends Component {
 
     addFormation = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:5000/api/former/createForm/1', {
-            title: e.target.elements.formationTitle.value,
-            cursus: e.target.elements.formationDescription.value
-        }).then(function (result) {
-        }).then(this.displayFormation.bind(this))
+        let former_id = localStorage.getItem('former_id')
+        axios.get('http://localhost:5000/api/former/refresh_token/',{
+            withCredentials:true,
+        })
+        .then(res =>{
+            let access = res.data.accessToken;
+            axios.post('http://localhost:5000/api/former/createForm/'+former_id, {
+                title: e.target.elements.formationTitle.value,
+                cursus: e.target.elements.formationDescription.value
+            },{
+                headers:{'authorization': `Bearer ${access}`}
+            })
+            .then(res => {
+                window.location.reload()
+            })
+        })
+        //.then(this.displayFormation.bind(this))
     }
     render() {
         let { formationsItems } = this.state;

@@ -155,8 +155,8 @@ export default class SignUp extends Component {
                 </div>
                 <input type="hidden" name="_token" ></input>
                 <div>
-                    <input type="radio" value="Formateur" name="choix" onChange={this.onChangeRadio}/> Formateur
-                    <input type="radio" value="Etudiant" name="choix" onChange={this.onChangeRadio} required/> Étudiant
+                    <input type="radio" value="Formateur" name="role" onChange={this.handleInputChange}/> Formateur
+                    <input type="radio" value="Etudiant" name="role" onChange={this.handleInputChange} required/> Étudiant
                 </div>
                 <button 
 

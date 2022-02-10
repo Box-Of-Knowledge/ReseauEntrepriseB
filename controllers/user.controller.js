@@ -1,5 +1,5 @@
 const argon2 = require('argon2');
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const pool = require('../db/db');
 const jwtTokens = require('../utils/jwt-helpers');
 

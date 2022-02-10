@@ -61,18 +61,18 @@ export default class Login extends Component {
             if(this.state.role === 'Formateur'){
                 formerService.login(this.state.name, this.state.password)
                 .then((res) => {
-                    window.localStorage.setItem('accessToken', res.data.secure.accessToken);
+                    //window.localStorage.setItem('accessToken', res.data.secure.accessToken);
                     window.localStorage.setItem('refreshToken', res.data.secure.refreshToken);
-                    window.localStorage.setItem('student_id', res.data.student_id);
+                    window.localStorage.setItem('former_id', res.data.former_id);
                     window.location.href='/formations';
                 })
             }
             else{
                 userService.login(this.state.name, this.state.password)
                 .then((res) => {
-                    window.localStorage.setItem('accessToken', res.data.secure.accessToken);
+                    //window.localStorage.setItem('accessToken', res.data.secure.accessToken);
                     window.localStorage.setItem('refreshToken', res.data.secure.refreshToken);
-                     window.localStorage.setItem('student_id', res.data.student_id);
+                    window.localStorage.setItem('student_id', res.data.student_id);
                     window.location.href='/formations';
                 })
             }
@@ -116,8 +116,8 @@ export default class Login extends Component {
 
                 <input type="hidden" name="_token" ></input>
                 <div>
-                    <input type="radio" value="Formateur" name="choix" onChange={this.onChangeRadio}/> Formateur
-                    <input type="radio" value="Etudiant" name="choix" onChange={this.onChangeRadio} required/> Étudiant
+                    <input type="radio" value="Formateur" name="role" onChange={this.onChangeRadio}/> Formateur
+                    <input type="radio" value="Etudiant" name="role" onChange={this.onChangeRadio} required/> Étudiant
                 </div>
                 <button
                 className="btn btn-dark btn-bg btn-block login"

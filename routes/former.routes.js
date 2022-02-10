@@ -4,10 +4,10 @@ const authenticateToken = require('../middleware/authorization');
 
 router.post('/register', formController.register)
 router.post('/login', formController.login)
-router.get('/:id',authenticateToken, formController.infos)
-router.put('/:id',authenticateToken, formController.modify)
-router.put('/:id',authenticateToken, formController.changePassword)
-router.delete('/:id',authenticateToken, formController.delete)
+router.get('/infos/:id',authenticateToken, formController.infos)
+router.put('/modify/:id',authenticateToken, formController.modify)
+router.put('/changePass/:id',authenticateToken, formController.changePassword)
+router.delete('/delete',authenticateToken, formController.delete)
 
 router.get('/refresh_token', formController.refresh)
 router.get('/delete_token', formController.deleteToken)
