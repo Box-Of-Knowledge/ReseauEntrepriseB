@@ -1,0 +1,5 @@
+version: 2 # CircleCI version
+general:
+  branches:
+    only:
+      - scripts
