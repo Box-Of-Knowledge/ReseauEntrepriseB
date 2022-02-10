@@ -3,3 +3,7 @@ general:
   branches:
     only:
       - scripts
+jobs:
+    build:
+        steps:
+            - run: echo "not this branch!" 
