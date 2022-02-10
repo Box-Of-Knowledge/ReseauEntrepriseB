@@ -3,3 +3,9 @@ general:
   branches:
     only:
       - scripts
+jobs:
+    build:
+        machine: true # Use a Linux VM instead of docker environment
+        working_directory: ~/repo
+        steps:
+            - run: echo "nothing here!"
