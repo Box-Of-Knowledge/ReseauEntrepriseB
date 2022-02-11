@@ -3,18 +3,21 @@ import '../App.css'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 
+const domain = process.env.DOMAIN_NAME
+
 export default class Formations extends Component {
     state = {
         formationsItems: [],
         subscribedFormationsItems: [],
     }
     componentDidMount() {
+        console.log(domain)
         this.displayFormation();
         this.getSubscribedFormations(localStorage.getItem('student_id'));
     };
 
     displayFormation() {
-        axios.get('https://localhost:443/api/formations')
+        axios.get('/api/formations')
             .then((result) => {
                 this.setState({
                     isLoaded: true,
@@ -26,12 +29,12 @@ export default class Formations extends Component {
     addFormation = (e) => {
         e.preventDefault();
         let former_id = localStorage.getItem('former_id')
-        axios.get('https://localhost:443/api/former/refresh_token/',{
+        axios.get('/api/former/refresh_token/',{
             withCredentials:true,
         })
         .then(res =>{
             let access = res.data.accessToken;
-            axios.post('https://localhost:443/api/former/createForm/'+former_id, {
+            axios.post('/api/former/createForm/'+former_id, {
                 title: e.target.elements.formationTitle.value,
                 cursus: e.target.elements.formationDescription.value,
                 image_formation: e.target.elements.imageRadio.value,
@@ -47,11 +50,11 @@ export default class Formations extends Component {
 
     modifyFormation = (e) => {
         e.preventDefault();
-        axios.put('https://localhost:443/api/formerformation/5')
+        axios.put('/api/formerformation/5')
     }
 
     registerToFormation = (e, id) => {
-        axios.post(`https://localhost:443/api/user/formation/register/${id}`, {
+        axios.post(`/api/user/formation/register/${id}`, {
             stud_id: localStorage.getItem('student_id'),
         }).then(() => {
             window.location.href = "/formations";
@@ -59,7 +62,7 @@ export default class Formations extends Component {
     }
 
     getSubscribedFormations = (id) => {
-        axios.get(`https://localhost:443/api/formations/UsersFormations/${id}`)
+        axios.get(`/api/formations/UsersFormations/${id}`)
             .then((result) => {
                 this.setState({
                     isLoaded: true,
