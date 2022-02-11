@@ -47,11 +47,11 @@ export default class Formations extends Component {
 
     modifyFormation = (e) => {
         e.preventDefault();
-        axios.put('http://localhost:5000/api/formerformation/5')
+        axios.put('https://localhost:443/api/formerformation/5')
     }
 
     registerToFormation = (e, id) => {
-        axios.post(`http://localhost:5000/api/user/formation/register/${id}`, {
+        axios.post(`https://localhost:443/api/user/formation/register/${id}`, {
             stud_id: localStorage.getItem('student_id'),
         }).then(() => {
             window.location.href = "/formations";
@@ -59,7 +59,7 @@ export default class Formations extends Component {
     }
 
     getSubscribedFormations = (id) => {
-        axios.get(`http://localhost:5000/api/formations/UsersFormations/${id}`)
+        axios.get(`https://localhost:443/api/formations/UsersFormations/${id}`)
             .then((result) => {
                 this.setState({
                     isLoaded: true,
