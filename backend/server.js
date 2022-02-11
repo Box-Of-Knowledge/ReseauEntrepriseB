@@ -13,14 +13,14 @@ const app = express()
 app.use(express.json());
 app.use(cors({
     credentials:true,
-    origin: 'http://localhost:3000'
+    origin: '*'
 }))
 app.use(cookieParser())
 app.listen(PORT, () => {
     console.log(`le serveur est lancé sur le port: ${PORT}`)
 })
 
-app.use('/api/user',userRoutes);
-app.use('/api/former',formerRoutes);
-app.use('/api/formations',formationsRoutes);
-app.use('/api/comment',commentRoutes);
+app.use('/user',userRoutes);
+app.use('/former',formerRoutes);
+app.use('/formations',formationsRoutes);
+app.use('/comment',commentRoutes);

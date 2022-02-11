@@ -6,9 +6,9 @@
     header @origin Access-Control-Allow-Headers: content-type
 }
 (redirect) {
+    import cors *
     handle_path /{args.0}/* {
-        import cors *
-        uri strip_prefix /{args.0}
+        #uri strip_prefix /{args.0}
         reverse_proxy {args.0}:{args.1}
     }
     redir /{args.0} https://{$DOMAIN_NAME}/{args.0}/ permanent

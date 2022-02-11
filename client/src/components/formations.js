@@ -14,8 +14,7 @@ export default class Formations extends Component {
     };
 
     displayFormation() {
-        console.log(localStorage.getItem('former_id'))
-        axios.get('http://localhost:5000/api/formations')
+        axios.get('https://localhost:443/api/formations')
             .then((result) => {
                 this.setState({
                     isLoaded: true,
@@ -27,12 +26,12 @@ export default class Formations extends Component {
     addFormation = (e) => {
         e.preventDefault();
         let former_id = localStorage.getItem('former_id')
-        axios.get('http://localhost:5000/api/former/refresh_token/',{
+        axios.get('https://localhost:443/api/former/refresh_token/',{
             withCredentials:true,
         })
         .then(res =>{
             let access = res.data.accessToken;
-            axios.post('http://localhost:5000/api/former/createForm/'+former_id, {
+            axios.post('https://localhost:443/api/former/createForm/'+former_id, {
                 title: e.target.elements.formationTitle.value,
                 cursus: e.target.elements.formationDescription.value,
                 image_formation: e.target.elements.imageRadio.value,

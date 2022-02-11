@@ -17,11 +17,6 @@ services:
       - ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}
       - REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET}
       - PORT=${WEB_PORT_HTTP}
-  web:
-    build: ./client
-    environment:
-      - WEB_PORT=${WEB_PORT_HTTP}
-      - DOMAIN_NAME=${DOMAIN_NAME}
   caddy:
     build: ./caddy
     command: caddy run
@@ -37,7 +32,6 @@ services:
       - "${WEB_PORT_HTTP}:80"
     depends_on:
       - api
-      - web
 
 volumes:
   postgres_data: { }
