@@ -18,11 +18,9 @@ services:
       - REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET}
       - PORT=${WEB_PORT_HTTP}
   caddy:
-    build: ./caddy
+    build: ./client
     command: caddy run
     volumes:
-      - "./caddy/Caddyfile:/etc/caddy/Caddyfile"
-      - "./caddy/web:/app"
       - caddy_data:/data
     environment:
       - WEB_PORT=${WEB_PORT}
