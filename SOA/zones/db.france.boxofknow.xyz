@@ -23,6 +23,6 @@ www                         IN          A               51.79.19.105
 
 
 ; SPF record should come below this line
-
+@                           IN          TXT             "v=spf1 a mx ~all"
 
 ; DMARC record should come below this line
