@@ -15,6 +15,7 @@ CREATE TABLE formation(
     form_form_id int not null,
     title CHAR(255) not null UNIQUE,
     cursus VARCHAR,
+    image_formation VARCHAR,
     CONSTRAINT fk_former FOREIGN KEY(form_form_id) REFERENCES former(former_id)
 );
 

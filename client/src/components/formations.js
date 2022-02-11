@@ -1,16 +1,20 @@
 import React, { Component } from "react";
 import '../App.css'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 
 export default class Formations extends Component {
     state = {
-        formationsItems: []
+        formationsItems: [],
+        subscribedFormationsItems: [],
     }
     componentDidMount() {
         this.displayFormation();
+        this.getSubscribedFormations(localStorage.getItem('student_id'));
     };
 
     displayFormation() {
+        console.log(localStorage.getItem('former_id'))
         axios.get('http://localhost:5000/api/formations')
             .then((result) => {
                 this.setState({
@@ -30,7 +34,8 @@ export default class Formations extends Component {
             let access = res.data.accessToken;
             axios.post('http://localhost:5000/api/former/createForm/'+former_id, {
                 title: e.target.elements.formationTitle.value,
-                cursus: e.target.elements.formationDescription.value
+                cursus: e.target.elements.formationDescription.value,
+                image_formation: e.target.elements.imageRadio.value,
             },{
                 headers:{'authorization': `Bearer ${access}`}
             })
@@ -40,12 +45,50 @@ export default class Formations extends Component {
         })
         //.then(this.displayFormation.bind(this))
     }
+
+    modifyFormation = (e) => {
+        e.preventDefault();
+        axios.put('http://localhost:5000/api/formerformation/5')
+    }
+
+    registerToFormation = (e, id) => {
+        axios.post(`http://localhost:5000/api/user/formation/register/${id}`, {
+            stud_id: localStorage.getItem('student_id'),
+        }).then(() => {
+            window.location.href = "/formations";
+        })
+    }
+
+    getSubscribedFormations = (id) => {
+        axios.get(`http://localhost:5000/api/formations/UsersFormations/${id}`)
+            .then((result) => {
+                this.setState({
+                    isLoaded: true,
+                    subscribedFormationsItems: result.data
+                })
+            })
+    }
+
+    getId(id) {
+        localStorage.setItem('formationId', id)
+    }
+
+    renderButton(formationId, array) {
+        for (let i = 0; i < array.length; i++) {
+            if (formationId == array[i].form_id) {
+                return <a href="#" className="btn btn-success" name="formationRegister" onClick={(e) => this.registerToFormation(e, formationId)}>Inscrit à la formation</a>
+            }
+        }
+        return <a href="#" className="btn btn-primary" name="formationRegister" onClick={(e) => this.registerToFormation(e, formationId)}>S'inscrire à la formation</a>
+    }
+
     render() {
         let { formationsItems } = this.state;
+        let { subscribedFormationsItems } = this.state;
         return (
             <div className="container text-center">
                 <h1>Formations disponibles</h1>
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Ajouter une formation</button>
+                {(localStorage.getItem('former_id')) ? <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Ajouter une formation</button> : '' }
 
                 <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="addFormationModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
@@ -68,7 +111,7 @@ export default class Formations extends Component {
                                     <div className="mb-3 row" name="imageForm">
                                         <label htmlFor="imageFormation" className="form-label">Choisir une image pour la formation</label>
                                         <div className="col-4">
-                                            <input type="radio" className="imgCheck col-4" name="imageRadio" id="imgCheck" autoComplete="off" value="https://cdn.pixabay.com/photo/2016/06/01/06/26/open-book-1428428_960_720.jpg" />
+                                            <input type="radio" className="imgCheck col-4" name="imageRadio" id="imgCheck" autoComplete="off" value="https://cdn.pixabay.com/photo/2016/06/01/06/26/open-book-1428428_960_720.jpg" defaultChecked />
                                             <label className="btn btn-outline-primary" role="button" htmlFor="imgCheck" aria-pressed="true">
                                                 <img className="" src="https://cdn.pixabay.com/photo/2016/06/01/06/26/open-book-1428428_960_720.jpg" alt="formation culture" />
                                             </label>
@@ -98,14 +141,15 @@ export default class Formations extends Component {
 
                 <div className="formationsList">
                     {this.state.formationsItems.map((formation, i) => (
+                        
                         <div className="card col" style={{ width: "18rem" }} key={i}>
-                            <img src="https://cdn.pixabay.com/photo/2016/11/23/14/45/coding-1853305_960_720.jpg" className="card-img-top" alt="image représentant la formation" />
+                            <img src={formation.image_formation} className="card-img-top" alt="image représentant la formation" />
                             <div className="card-body">
                                 <h5 className="card-title"> {formation.title} </h5>
-                                <p className="card-text"> {formation.description}</p>
-                                <a href="#" className="btn btn-primary">Suivre la formation</a>
+                                {this.renderButton(formation.formation_id, this.state.subscribedFormationsItems)}
                             </div>
                         </div>
+                        
                     ))}
                 </div>
             </div>

@@ -119,10 +119,10 @@ const formerCtrl = {
     createFormation : async(req,res,next) =>{
         try{
             const { id } = req.params;
-            const {title, cursus} = req.body;
+            const {title, cursus, image_formation} = req.body;
             console.log(title, cursus, id);
 
-            const newFormation = await pool.query('INSERT INTO formation (title, cursus, form_form_id) VALUES($1, $2, $3)', [title, cursus, id]);
+            const newFormation = await pool.query('INSERT INTO formation (title, cursus, form_form_id, image_formation) VALUES($1, $2, $3, $4)', [title, cursus, id, image_formation]);
 
             res.json({msg:'Formation créée.'})
             // res.json({msg: "Register Success! "})
@@ -135,7 +135,7 @@ const formerCtrl = {
     infosFormation : async(req, res) => {
         try {
             const { id } = req.params;
-            const userId = await pool.query('SELECT * FROM formation WHERE former_id = $1', [id])
+            const userId = await pool.query('SELECT * FROM formation WHERE formation_id = $1', [id])
             res.json(userId.rows[0])
         }
         catch (err) {
@@ -147,7 +147,7 @@ const formerCtrl = {
         try {
            const { id } = req.params;
            const { name } = req.body;
-           await pool.query('UPDATE former SET name = $1 WHERE former_id = $2', [name, id]);
+           await pool.query('UPDATE formation SET title = $1 WHERE formation_id = $2', [name, id]);
            res.json('Former has been updated')
         }
         catch (err) {

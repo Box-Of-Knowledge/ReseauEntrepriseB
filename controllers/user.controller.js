@@ -34,9 +34,9 @@ const userCtrl = {
 
             let tokens = jwtTokens(student.rows[0]) //créé tokens
             res.cookie('refresh_token', tokens.refreshToken, {
-                httpOnly: true,
-                sameSite: 'none', 
-                secure: true}
+                httpOnly: false,
+                sameSite: 'strict', 
+                secure: false}
             );
             res.json({secure:tokens, student_id:student.rows[0].student_id});
         }
@@ -108,7 +108,18 @@ const userCtrl = {
         } catch (error) {
           res.status(401).json({error: error.message});
         }
-    }
+    },
+    registerToFormation : async(req, res) => {
+        try {
+        const { id } = req.params;
+        const {stud_id, form_id} = req.body;
+        await pool.query('INSERT INTO formation_student (form_id, stud_id) VALUES ($1,$2)', [id, stud_id]);
+        res.json('User subscribed !')
+        }
+        catch (err) {
+        console.error(err.message);
+        }
+    },
 }
 
 module.exports = userCtrl;

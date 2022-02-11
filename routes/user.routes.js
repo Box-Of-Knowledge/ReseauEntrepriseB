@@ -11,5 +11,6 @@ router.delete('/delete',authenticateToken, userController.delete)
 
 router.get('/refresh_token', userController.refresh)
 router.get('/delete_token', userController.deleteToken)
+router.post('/formation/register/:id', userController.registerToFormation)
 
 module.exports = router;
